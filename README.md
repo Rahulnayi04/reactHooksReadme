@@ -86,7 +86,9 @@ export default Transition;
 
 This is one of the most important hook helps to deal with concurrency and slow rendering. 
 Before knowing this hook, let's understand what happenes if we don't use this hook? in Below code we have a very slow code in useMemo and input is changing on every key-stroke. As the code inside useMemo is expensive and being called on input change, if we do not make this input deferred then it will run as very slow and sluggish to the user. And so the user experience will be compromised.
+
 ## Without `useDeferredValue`
+
 ```jsx
 const DeferredValue = () => {
     const [input, setInput] = useState('');
@@ -120,9 +122,13 @@ function List({input}) {
     return list;
 }
 ```
-## using `useDeferredValue`
+
+## Using `useDeferredValue`
+
 The `useDeferredValue` hook allows us to fix this slow render problem by implementing a delay before some information is calculated. This works in a very similar way to `debouncing` and `throttling` since our deferred value will only be calculated after the important state updates have finished running. If you are unfamiliar with debouncing/throttling, please get the brief idea on it by clicking on it.
+
 <br/>
+
 [debouncing Exlained]: https://www.freecodecamp.org/news/javascript-debounce-example/
 
 ```jsx
