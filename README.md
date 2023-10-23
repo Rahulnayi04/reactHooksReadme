@@ -18,7 +18,10 @@ Understand the power of the `useTransition` hook in, highlighting its impact on 
 The component `WithoutuseTransition` demonstrates a scenario where React renders after both states (`input` and `lists`) are updated in the `HandleChange` function. This can potentially lead to reduced responsiveness.
 
 ```jsx
-const [input,setInput] = useState('');
+import { useState } from "react"
+
+const WithoutuseTransition = () => {
+    const [input,setInput] = useState('');
     const [lists,setLists] = useState([]); 
     const list_size = 10000;
     
@@ -31,13 +34,27 @@ const [input,setInput] = useState('');
             setLists(l);
        
     }
+    return ( 
+        <>
+        <input value={input} onChange={HandleChange} placeholder="Search here..."/>
+        {lists.map((item,index) => {
+            return <div key={index}>{input}</div>
+        })}
+        </>
+    )
+}
+
+export default WithoutuseTransition;
 ```
 ## Without `useTransition`
 
 The component `WithoutuseTransition` demonstrates a scenario where React renders after both individual states (`input` and `lists`) updates in the `HandleChange` function. This will aids in responsiveness to the user and does not make it slow and sluggish. 
 
 ```jsx
-const [input,setInput] = useState('');
+import { useState,useTransition } from "react"
+
+const Transition = () => {
+    const [input,setInput] = useState('');
     const [lists,setLists] = useState([]);
     const [isPending, startTransition] = useTransition()
     const list_size = 10000;
@@ -52,5 +69,16 @@ const [input,setInput] = useState('');
             setLists(l);
         })
     }
+    return ( 
+        <>
+        <input value={input} onChange={HandleChange} placeholder="Search here..."/>
+        {isPending ? <div>Loading...</div> : lists.map((item,index)=> {
+            return <div key={index}>{input}</div>
+        })}
+        </>
+    )
+}
+
+export default Transition;
 ```
 
