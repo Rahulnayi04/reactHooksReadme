@@ -15,7 +15,7 @@ Understand the power of the `useTransition` hook in, highlighting its impact on 
 
 ## Without `useTransition`
 
-The component `Transition` demonstrates a scenario where React renders after both states (`input` and `lists`) are updated in the `HandleChange` function. This can potentially lead to reduced responsiveness.
+The component `WithoutuseTransition` demonstrates a scenario where React renders after both states (`input` and `lists`) are updated in the `HandleChange` function. This can potentially lead to reduced responsiveness.
 
 ```jsx
 import { useState } from "react"
@@ -48,7 +48,7 @@ export default WithoutuseTransition;
 ```
 ## Using `useTransition`
 
-The component `WithoutuseTransition` demonstrates a scenario where React renders after both individual states (`input` and `lists`) updates in the `HandleChange` function. This will aids in responsiveness to the user and does not make it slow and sluggish. 
+The component `Transition` demonstrates a scenario where React renders after both individual states (`input` and `lists`) updates in the `HandleChange` function. This will aids in responsiveness to the user and does not make it slow and sluggish. 
 
 ```jsx
 import { useState,useTransition } from "react"
