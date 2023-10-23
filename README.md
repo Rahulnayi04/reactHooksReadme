@@ -286,3 +286,29 @@ const Child = forwardRef((_props,_ref) => {
 In this example, the child component exposes two functions to the parent component through the use of `useImperativeHandle`: `increment` and `getCount`.
 These functions can be accessed by the parent component through the childRef ref. The parent component can then call the increment function when the button is clicked, which will update the count state of the child component.
 
+# useDebugValue
+
+The `useDebugValue` hook is simply used to print out debug information for custom hooks. This is incredibly useful if you are creating a library for others to use since they can easily see information about your hook, but it also is useful for your own hooks since you can quickly see detailed information about your hooks.
+<br />
+This debug information is displayed within the React dev tools. 
+
+```jsx
+function useCounter(initialValue) {
+  const [count, setCount] = useState(initialValue);
+
+  useDebugValue(`Count is ${count}`);  
+
+  return [count, setCount];
+}
+
+function DebugValue() {
+  const [count, setCount] = useCounter(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+```
