@@ -44,7 +44,7 @@ const WithoutUseTransition = () => {
     )
 }
 
-export default WithoutuseTransition;
+export default WithoutUseTransition;
 ```
 ## Using `useTransition`
 
