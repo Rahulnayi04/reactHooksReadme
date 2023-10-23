@@ -128,8 +128,7 @@ function List({input}) {
 The `useDeferredValue` hook allows us to fix this slow render problem by implementing a delay before some information is calculated. This works in a very similar way to `debouncing` and `throttling` since our deferred value will only be calculated after the important state updates have finished running. If you are unfamiliar with debouncing/throttling, please get the brief idea on it by clicking on it.
 
 <br/>
-
-[debouncing Exlained]: https://www.freecodecamp.org/news/javascript-debounce-example/
+https://www.freecodecamp.org/news/javascript-debounce-example/
 
 ```jsx
 import { useState } from "react";
