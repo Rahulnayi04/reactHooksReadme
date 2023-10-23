@@ -46,7 +46,7 @@ const WithoutuseTransition = () => {
 
 export default WithoutuseTransition;
 ```
-## Without `useTransition`
+## Using `useTransition`
 
 The component `WithoutuseTransition` demonstrates a scenario where React renders after both individual states (`input` and `lists`) updates in the `HandleChange` function. This will aids in responsiveness to the user and does not make it slow and sluggish. 
 
