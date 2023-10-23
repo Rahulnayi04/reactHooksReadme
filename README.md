@@ -86,7 +86,7 @@ export default Transition;
 
 This is one of the most important hook helps to deal with concurrency and slow rendering. 
 Before knowing this hook, let's understand what happenes if we don't use this hook? in Below code we have a very slow code in useMemo and input is changing on every key-stroke. As the code inside useMemo is expensive and being called on input change, if we do not make this input deferred then it will run as very slow and sluggish to the user. And so the user experience will be compromised.
-## Without using `useDeferredValue`
+## Without `useDeferredValue`
 ```jsx
 const DeferredValue = () => {
     const [input, setInput] = useState('');
@@ -101,6 +101,7 @@ const DeferredValue = () => {
         </>
     )
 }
+//List.jsx
 function List({input}) {
     const deferredInput = useDeferredValue(input)
     const list_size = 15000;
@@ -123,3 +124,45 @@ function List({input}) {
 The `useDeferredValue` hook allows us to fix this slow render problem by implementing a delay before some information is calculated. This works in a very similar way to `debouncing` and `throttling` since our deferred value will only be calculated after the important state updates have finished running. If you are unfamiliar with debouncing/throttling, please get the brief idea on it by clicking on it.
 <br/>
 [debouncing Exlained]: https://www.freecodecamp.org/news/javascript-debounce-example/
+
+```jsx
+import { useState } from "react";
+const DeferredValue = () => {
+    const [input, setInput] = useState('');
+    function handleChange(e){
+        setInput(e.target.value)
+    }
+    return (
+        <>
+        <input placeholder='Search here...' value={input} onChange={handleChange}></input>
+        <List input={input} />
+        </>
+    )
+}
+//List.jsx
+function List({input}) {
+    const deferredInput = useDeferredValue(input)
+    const list_size = 15000;
+    const list = useMemo(()=>{
+        const l = []
+        for(let i =0;i<list_size;i++){
+            l.push(<div key={i}>{deferredInput}</div>)
+        }
+        return l
+    },[deferredInput])
+
+    useEffect(()=>{
+        console.log(`input ${input}`);
+        console.log(`deferred input ${deferredInput}`);
+    },[input,deferredInput])
+    return list;
+}
+export default DeferredValue;
+```
+- The purpose of using `useDeferredValue` in this example is to ensure that the large list creation (list) is delayed until after any important state updates have been processed.
+deferredInput holds a value that's potentially delayed. If there are other important state updates happening at the same time, React may prioritize them over calculating deferredInput.
+- When list is created using useMemo, it uses the deferred value (deferredInput) to generate the list elements. This ensures that the potentially expensive operation of generating the list only happens after any critical state updates are complete.
+- Without `useDeferredValue`, React might try to calculate input immediately, potentially causing performance issues if it's a costly operation.
+- By using `useDeferredValue`, you're optimizing the rendering process, especially when dealing with potentially time-consuming tasks like generating large lists. This helps keep your application responsive and smooth.
+- Remember, use useDeferredValue judiciously, focusing on scenarios where it genuinely improves performance.
+
