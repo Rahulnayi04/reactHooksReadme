@@ -166,3 +166,40 @@ deferredInput holds a value that's potentially delayed. If there are other impor
 - By using `useDeferredValue`, you're optimizing the rendering process, especially when dealing with potentially time-consuming tasks like generating large lists. This helps keep your application responsive and smooth.
 - Remember, use useDeferredValue judiciously, focusing on scenarios where it genuinely improves performance.
 
+# useLayoutEffect
+
+Don't counfuse yourself when it comes to `useEffect` vs `useLayoutEffect`.
+## The Main Difference: 
+The `useLayoutEffect` hook runs `synchronously` directly after React calculates the DOM changes but before it paints those changes to the screen. This means that `useLayoutEffect` code will delay the painting of a component since it runs synchronously before painting, while `useEffect` is `asynchronous` and will not delay the paint.
+
+## `uselayoutEffect`
+`useLayoutEffect` is used when our code directly modifies the DOM in a way that's noticeable to the user. For instance, if we need to change a DOM element's background color, it's best to use useLayoutEffect. This ensures that the DOM is updated synchronously, preventing any initial incorrect rendering that might occur with useEffect. In short, useLayoutEffect guarantees immediate, user-visible changes when manipulating the DOM.
+
+```jsx
+import { useState, useLayoutEffect } from "react";
+
+function LayoutEffect() {
+  const [color, setColor] = useState("red");
+
+  useLayoutEffect(() => {
+    console.log("Use Layout Effect executed");
+    setColor("green");
+    return () => {};
+  }, []);
+
+  return (
+    <>
+      <div style={{ padding: "2rem", backgroundColor: color }}>
+        <p>Do not Flickers in case of useLayoutEffect.</p>
+        <p>
+          UseLayoutEffect is called somewhere between Dom calculation and the
+          DOM painting to the screen. It works Synchronously.
+        </p>
+      </div>
+    </>
+  );
+}
+
+export default LayoutEffect;
+```
+In the provided code, `useLayoutEffect` is used to immediately change the color of the element to 'green' after it's rendered. If `useEffect` were used instead, the color change might not be immediately visible, potentially resulting in a flicker.
