@@ -9,5 +9,25 @@ This project serves as a comprehensive introduction to the new hooks introduced 
 - `useId`
 - `useDebugValue`
 
-## useTransition
+# useTransition
+
+Understand the power of the `useTransition` hook in, highlighting its impact on responsiveness and performance compared to a code without it.
+
+## Without `useTransition`
+
+The component `WithoutuseTransition` demonstrates a scenario where React renders after both states (`input` and `lists`) are updated in the `HandleChange` function. This can potentially lead to reduced responsiveness.
+
+```jsx
+const HandleChange = (e) => {
+        setInput(e.target.value);
+        startTransition(()=>{
+            const l = [];
+            for(let i=0;i<list_size;i++){
+                l.push(e.target.value)
+            }
+            setLists(l);
+        })
+    }
+
+
 
