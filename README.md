@@ -15,7 +15,7 @@ Understand the power of the `useTransition` hook in, highlighting its impact on 
 
 ## Without `useTransition`
 
-The component `WithoutuseTransition` demonstrates a scenario where React renders after both states (`input` and `lists`) are updated in the `HandleChange` function. This can potentially lead to reduced responsiveness.
+The component `Transition` demonstrates a scenario where React renders after both states (`input` and `lists`) are updated in the `HandleChange` function. This can potentially lead to reduced responsiveness.
 
 ```jsx
 import { useState } from "react"
