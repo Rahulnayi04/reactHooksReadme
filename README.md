@@ -15,24 +15,24 @@ Understand the power of the `useTransition` hook in, highlighting its impact on 
 
 ## Without `useTransition`
 
-The component `WithoutuseTransition` demonstrates a scenario where React renders after both states (`input` and `lists`) are updated in the `HandleChange` function. This can potentially lead to reduced responsiveness.
+The component `WithoutUseTransition` demonstrates a scenario where react renders after both states (`input` and `lists`) are updated in the `HandleChange` function. This can potentially lead to reduced responsiveness.
 
 ```jsx
 import { useState } from "react"
 
-const WithoutuseTransition = () => {
+const WithoutUseTransition = () => {
     const [input,setInput] = useState('');
     const [lists,setLists] = useState([]); 
     const list_size = 10000;
     
     const HandleChange = (e) => {
         setInput(e.target.value);
-        const l = [];
+        const tempList = [];
             for(let i=0;i<list_size;i++){
-                l.push(e.target.value)
+                tempList.push(e.target.value)
             }
-            setLists(l);
-       
+            setLists(tempList);
+           
     }
     return ( 
         <>
@@ -104,23 +104,23 @@ const DeferredValue = () => {
     )
 }
 //List.jsx
-function List({input}) {
-    const deferredInput = useDeferredValue(input)
-    const list_size = 15000;
-    const list = useMemo(()=>{
-        const l = []
-        for(let i =0;i<list_size;i++){
-            l.push(<div key={i}>{input}</div>)
-        }
-        return l
-    },[input])
+ function List({input}) {
+        const deferredInput = useDeferredValue(input)
+        const list_size = 15000;
+        const list = useMemo(()=>{
+            const tempList = []
+            for(let i =0;i<list_size;i++){
+                tempList.push(<div key={i}>{deferredInput}</div>)
+            }
+            return tempList
+        },[deferredInput])
 
-    useEffect(()=>{
-        console.log(`input ${input}`);
-        console.log(`deferred input ${deferredInput}`);
-    },[input,deferredInput])
-    return list;
-}
+        useEffect(()=>{
+            console.log(`input ${input}`);
+            console.log(`deferred input ${deferredInput}`);
+        },[input,deferredInput])
+        return list;
+    }
 ```
 
 ## Using `useDeferredValue`
